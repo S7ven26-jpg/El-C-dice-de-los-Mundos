@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ruta personal de lectura por el Cosmere, en español y sin spoilers.">
+  <meta name="theme-color" content="#10141b">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ruta de lectura · El Códice de los Mundos</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="books.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#ruta">Ir a la ruta</a>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="#inicio"><span class="sigil" aria-hidden="true">✧</span><span>El Códice <em>de los Mundos</em></span></a>
+      <nav aria-label="Navegación principal"><a href="#ruta">Ruta</a><a href="#fuentes">Fuentes</a></nav>
+    </div>
+  </header>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <p class="eyebrow"><span aria-hidden="true"></span> Cuaderno de lectura</p>
+        <h1 id="hero-title">Una ruta por<br>el <em>Cosmere.</em></h1>
+        <p class="intro">El orden de lectura de Brandon Sanderson, adaptado a tu punto de partida. En español y sin spoilers.</p>
+        <a class="primary-link" href="#ruta">Ver mi ruta</a>
+      </div>
+    </section>
+    <div class="wrap">
+      <section class="progress-panel" aria-labelledby="progress-heading">
+        <div class="progress-left">
+          <p class="eyebrow">Tu siguiente lectura</p>
+          <h2 id="progress-heading">El pozo de la ascensión</h2>
+          <p id="next-context" class="muted">Nacidos de la Bruma · Era 1</p>
+        </div>
+        <div class="progress-right">
+          <div class="progress-label"><label for="reading-progress">Ruta principal</label><span id="progress-count"></span></div>
+          <progress id="reading-progress" value="1" max="13"></progress>
+          <p id="storage-note" class="muted">Tu avance se guarda en este navegador.</p>
+        </div>
+      </section>
+      <section class="route" id="ruta" aria-labelledby="route-title">
+        <div class="route-heading">
+          <div><p class="eyebrow">Biblioteca personal</p><h2 id="route-title">Orden de lectura</h2></div>
+          <label for="status-filter">Mostrar <select id="status-filter"><option value="all">Todos</option><option value="pending">Pendientes</option><option value="read">Terminados</option></select></label>
+        </div>
+        <div id="sections" class="sections" role="group" aria-label="Recorridos"></div>
+        <p id="section-description" class="section-description"></p>
+        <div id="reading-list"></div>
+        <noscript>Activa JavaScript para ver el recorrido y guardar tu progreso.</noscript>
+        <div id="announcements" class="sr-only" aria-live="polite"></div>
+      </section>
+      <section id="fuentes" class="sources" aria-labelledby="source-title">
+        <p class="eyebrow">Referencias</p>
+        <h2 id="source-title">De dónde sale la ruta</h2>
+        <p>El video de 2024 da la secuencia base. Su guía escrita propone empezar por el primer tomo de cada serie y permite elegir entre varias puertas de entrada. Las pausas son opcionales. Revisada el 23 de noviembre de 2026.</p>
+        <details><summary>Ver fuentes externas</summary>
+          <p class="muted">Los enlaces externos pueden mostrar sinopsis de libros que aún no has leído.</p>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=0mC8dsQJK7w" target="_blank" rel="noopener noreferrer">El orden de lectura explicado por Brandon Sanderson</a></li>
+            <li><a href="https://www.brandonsanderson.com/pages/where-do-i-start" target="_blank" rel="noopener noreferrer">Guía oficial «Where do I start?»</a></li>
+            <li><a href="https://www.brandonsanderson.com/pages/the-mistborn-saga-the-original-trilogy" target="_blank" rel="noopener noreferrer">Guía de la trilogía original y sus lecturas complementarias</a></li>
+            <li><a href="https://www.youtube.com/watch?v=fEO5kbowtNk" target="_blank" rel="noopener noreferrer">Actualización de septiembre de 2026</a></li>
+            <li><a href="https://www.brandonsanderson.com/blogs/blog/state-of-the-sanderson-2025" target="_blank" rel="noopener noreferrer">Actualización editorial del autor</a></li>
+          </ul>
+        </details>
+      </section>
+    </div>
+  </main>
+  <footer class="wrap footer"><span>El Códice de los Mundos</span><a href="#inicio">Volver al inicio</a></footer>
+</body>
+</html>
