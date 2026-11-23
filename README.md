@@ -15,3 +15,7 @@ Descomprime el ZIP y abre `index.html` en tu navegador. Conserva los archivos y 
 Un repositorio privado y un sitio privado son configuraciones distintas en GitHub. El acceso privado de Pages requiere una organización con GitHub Enterprise Cloud. El avance se guarda por navegador y dirección: la copia local y la versión publicada tienen historiales independientes.
 
 [Guía oficial de despliegue](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) · [Visibilidad de Pages](https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)
+
+## Láminas de referencia
+
+La sección **Láminas** incluye las cuatro imágenes en `assets/referencias`. Para leer el texto pequeño, abre una lámina y pulsa **Ampliar**. La tabla completa de metales tiene un aviso previo para evitar spoilers.

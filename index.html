@@ -10,13 +10,14 @@
   <link rel="stylesheet" href="styles.css">
   <script src="books.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="references.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#ruta">Ir a la ruta</a>
   <header class="masthead">
     <div class="wrap masthead-inner">
       <a class="brand" href="#inicio"><span class="sigil" aria-hidden="true">✧</span><span>El Códice <em>de los Mundos</em></span></a>
-      <nav aria-label="Navegación principal"><a href="#ruta">Ruta</a><a href="#fuentes">Fuentes</a></nav>
+      <nav aria-label="Navegación principal"><a href="#ruta">Ruta</a><a href="#laminas">Láminas</a><a href="#fuentes">Fuentes</a></nav>
     </div>
   </header>
   <main id="inicio">
@@ -52,6 +53,42 @@
         <noscript>Activa JavaScript para ver el recorrido y guardar tu progreso.</noscript>
         <div id="announcements" class="sr-only" aria-live="polite"></div>
       </section>
+      <section id="laminas" class="references" aria-labelledby="references-title">
+        <h2 id="references-title">Láminas de referencia</h2>
+        <p class="muted">Mapas y guías de Nacidos de la Bruma en español.</p>
+        <div class="reference-grid">
+          <a class="reference-card" href="assets/referencias/mapa-imperio-final.png" data-reference="Mapa de El Imperio Final">
+            <img src="assets/referencias/mapa-imperio-final.png" width="1352" height="1048" loading="lazy" alt="Mapa regional con los dominios de El Imperio Final">
+            <span>Mapa de El Imperio Final</span>
+          </a>
+          <a class="reference-card" href="assets/referencias/mapa-luthadel.png" data-reference="Luthadel · Mapa y leyenda">
+            <img src="assets/referencias/mapa-luthadel.png" width="2048" height="1394" loading="lazy" alt="Plano de Luthadel con una leyenda numerada en español">
+            <span>Luthadel · Mapa y leyenda</span>
+          </a>
+          <a class="reference-card" href="assets/referencias/guia-alomancia.png" data-reference="Alomancia · Guía de los ocho metales">
+            <img src="assets/referencias/guia-alomancia.png" width="1422" height="2047" loading="lazy" alt="Guía de ocho metales con sus efectos y títulos brumosos">
+            <span>Alomancia · Guía de los ocho metales</span>
+          </a>
+          <details class="reference-card advanced-reference">
+            <summary>Tabla completa de metales</summary>
+            <p class="muted">Incluye metales y efectos que se introducen después de <cite>El Imperio Final</cite>.</p>
+            <a href="assets/referencias/tabla-metales.png" data-reference="Tabla completa de metales alománticos">Abrir tabla completa</a>
+          </details>
+        </div>
+      </section>
+      <dialog id="reference-viewer" aria-labelledby="reference-title">
+        <div class="reference-toolbar">
+          <h3 id="reference-title"></h3>
+          <div class="reference-actions">
+            <button id="reference-zoom" type="button" aria-pressed="false">Ampliar</button>
+            <a id="reference-original" target="_blank" rel="noopener noreferrer">Abrir original<span class="sr-only"> en otra pestaña</span></a>
+            <form method="dialog"><button type="submit" autofocus>Cerrar</button></form>
+          </div>
+        </div>
+        <div class="reference-scroll" tabindex="0" role="region" aria-label="Imagen de referencia desplazable">
+          <img id="reference-image" alt="">
+        </div>
+      </dialog>
       <section id="fuentes" class="sources" aria-labelledby="source-title">
         <p class="eyebrow">Referencias</p>
         <h2 id="source-title">De dónde sale la ruta</h2>
