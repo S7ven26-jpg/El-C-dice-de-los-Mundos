@@ -3,7 +3,12 @@ const readList = document.querySelector('#reading-list');
 const sectionNav = document.querySelector('#sections');
 const statusFilter = document.querySelector('#status-filter');
 const announcements = document.querySelector('#announcements');
-const principal = groups.filter(group => group.section === 'principal')
+const journeyStops = document.querySelector('#journey-stops');
+const finishedBooks = document.querySelector('#finished-books');
+const sagaBooks = document.querySelector('#saga-books');
+const nextReading = document.querySelector('#next-reading');
+const principalGroups = groups.filter(group => group.section === 'principal');
+const principal = principalGroups
   .flatMap(group => group.books.map(book => ({ book, group })));
 const titles = new Map(groups.flatMap(group => group.books.map(book => [book[0], book[1]])));
 const descriptions = {
@@ -42,9 +47,15 @@ function updateProgress() {
   document.querySelector('#progress-count').textContent = `${count} de ${principal.length}`;
   document.querySelector('#progress-heading').textContent = next ? next.book[1] : 'Ruta principal completada';
   document.querySelector('#next-context').textContent = next ? next.group.title : 'Explora las pausas y los complementos.';
+  nextReading.hidden = !next;
+  nextReading.dataset.book = next?.book[0] ?? '';
+  document.querySelector('#journey-count').textContent = `${count} de ${principal.length} en la ruta principal`;
+  journeyStops.style.setProperty('--journey-fill', `${count / principal.length * 100}%`);
+  renderJourney(next);
+  renderSagaBooks(next);
 }
 
-function toggleBook(id, checked) {
+function toggleBook(id, checked, fromSaga = false) {
   if (checked) completed.add(id);
   else completed.delete(id);
   try {
@@ -54,9 +65,58 @@ function toggleBook(id, checked) {
   }
   updateProgress();
   renderBooks();
-  const focus = document.getElementById(`read-${id}`) || statusFilter;
+  const focus = document.getElementById(`${fromSaga ? 'saga' : 'read'}-${id}`) || statusFilter;
   focus.focus({ preventScroll:true });
   announcements.textContent = `${titles.get(id)}: ${checked ? 'terminado' : 'pendiente'}.`;
+  if (checked) document.dispatchEvent(new Event('reading-complete'));
+}
+
+function renderJourney(next) {
+  const stops = principalGroups.map(group => {
+    const read = group.books.filter(book => completed.has(book[0])).length;
+    const stage = el('li', 'journey-stop');
+    const button = el('button','journey-node');
+    button.type = 'button';
+    const done = read === group.books.length;
+    const current = group === next?.group;
+    button.dataset.state = done ? 'read' : current ? 'current' : 'pending';
+    if (current) button.setAttribute('aria-current','step');
+    const shortTitles = ['Era 1', 'Independientes', 'El Archivo I', 'El Archivo II', 'El Archivo III', 'El Archivo IV', 'El Archivo V'];
+    const symbol = el('span','node-symbol',done ? '✓' : current ? '✧' : '◇');
+    symbol.setAttribute('aria-hidden','true');
+    button.append(symbol, el('span','node-title',shortTitles[principalGroups.indexOf(group)]), el('span','node-status',done ? 'Completado' : current ? 'En curso' : read ? `${read} de ${group.books.length}` : 'Pendiente'));
+    button.setAttribute('aria-label',`${group.title}, ${read} de ${group.books.length} completados`);
+    button.addEventListener('click', () => jumpToBook((group.books.find(book => !completed.has(book[0])) ?? group.books[0])[0]));
+    stage.append(button);
+    return stage;
+  });
+  journeyStops.replaceChildren(...stops);
+  const archive = groups.flatMap(group => group.books).filter(book => completed.has(book[0]));
+  finishedBooks.replaceChildren(...archive.map(book => el('li','finished-book',book[1])));
+  document.querySelector('#finished-empty').hidden = archive.length > 0;
+}
+
+const trilogyNotes = [
+  'Una historia de atracos y rebelión en la que se presentan Luthadel y la alomancia.',
+  'Lee este tomo después de El Imperio Final. Puedes consultar aquí los mapas y los ocho metales básicos mientras avanzas.',
+  'Último tomo de la primera era. La ruta sitúa la segunda era en las pausas del Archivo de las Tormentas.',
+];
+
+function renderSagaBooks(next) {
+  sagaBooks.replaceChildren(...principalGroups[0].books.map(([id, title, original], index) => {
+    const done = completed.has(id);
+    const card = el('article', 'saga-book');
+    card.dataset.state = done ? 'read' : next?.book[0] === id ? 'current' : 'pending';
+    card.append(el('p','eyebrow',`Tomo ${index + 1}`), el('h3','',title), el('p','original',original), el('p','muted',trilogyNotes[index]));
+    const button = el('button','saga-read',done ? '✓ Terminado' : 'Marcar como leído');
+    button.type = 'button';
+    button.id = `saga-${id}`;
+    button.setAttribute('aria-pressed',String(done));
+    button.setAttribute('aria-label',`${done ? 'Terminado' : 'Marcar como leído'}: ${title}`);
+    button.addEventListener('click', () => toggleBook(id, !done, true));
+    card.append(button);
+    return card;
+  }));
 }
 
 function bookRow(book, nextId) {
@@ -116,15 +176,32 @@ function renderBooks() {
   readList.replaceChildren(fragment);
 }
 
+function chooseSection(id) {
+  section = id;
+  for (const option of sectionNav.children) option.setAttribute('aria-pressed', String(option.dataset.section === section));
+  renderBooks();
+}
+
+function jumpToBook(id) {
+  statusFilter.value = completed.has(id) ? 'all' : 'pending';
+  chooseSection('principal');
+  const checkbox = document.getElementById(`read-${id}`);
+  checkbox?.focus({ preventScroll:true });
+  checkbox?.closest('.book').scrollIntoView({ block:'center' });
+}
+
+nextReading.addEventListener('click', event => {
+  if (!nextReading.dataset.book) return;
+  event.preventDefault();
+  jumpToBook(nextReading.dataset.book);
+});
+
 for (const [id, label] of sections) {
   const button = el('button','section-button',label);
   button.type = 'button';
   button.setAttribute('aria-pressed',String(id === section));
-  button.addEventListener('click',() => {
-    section = id;
-    for (const option of sectionNav.children) option.setAttribute('aria-pressed',String(option === button));
-    renderBooks();
-  });
+  button.dataset.section = id;
+  button.addEventListener('click',() => chooseSection(id));
   sectionNav.append(button);
 }
 statusFilter.addEventListener('change',renderBooks);

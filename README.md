@@ -18,4 +18,8 @@ Un repositorio privado y un sitio privado son configuraciones distintas en GitHu
 
 ## Láminas de referencia
 
-La sección **Láminas** incluye las cuatro imágenes en `assets/referencias`. Para leer el texto pequeño, abre una lámina y pulsa **Ampliar**. La tabla completa de metales tiene un aviso previo para evitar spoilers.
+La pestaña **Nacidos de la Bruma** reúne los libros de la primera era, el círculo de alomancia y las cuatro imágenes de referencia en `assets/referencias`. Para leer el texto pequeño, abre una lámina y pulsa **Ampliar**. La tabla completa de metales tiene un aviso previo para evitar spoilers.
+
+## Mi viaje y efectos visuales
+
+Los hitos del inicio llevan al tramo correspondiente. Puedes marcar libros como leídos tanto en la ruta como en la pestaña de la saga. El botón **Pausar efectos** detiene la bruma, las partículas y las demás animaciones.

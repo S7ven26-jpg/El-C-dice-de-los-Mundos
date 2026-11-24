@@ -8,33 +8,45 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Ruta de lectura · El Códice de los Mundos</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="fantasia.css">
   <script src="books.js" defer></script>
   <script src="app.js" defer></script>
   <script src="references.js" defer></script>
+  <script src="fantasia.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#ruta">Ir a la ruta</a>
+  <a class="skip" id="skip-link" href="#ruta">Ir al contenido</a>
   <header class="masthead">
     <div class="wrap masthead-inner">
       <a class="brand" href="#inicio"><span class="sigil" aria-hidden="true">✧</span><span>El Códice <em>de los Mundos</em></span></a>
-      <nav aria-label="Navegación principal"><a href="#ruta">Ruta</a><a href="#laminas">Láminas</a><a href="#fuentes">Fuentes</a></nav>
+      <nav aria-label="Navegación principal">
+        <a href="#inicio" data-page="home" aria-current="page">Mi viaje</a>
+        <a href="#saga" data-page="saga">Nacidos de la Bruma</a>
+      </nav>
+      <button id="motion-control" type="button" aria-pressed="false">Pausar efectos</button>
     </div>
   </header>
-  <main id="inicio">
-    <section class="hero" aria-labelledby="hero-title">
+  <main id="content">
+    <div id="home-page" class="page-view">
+    <section id="inicio" class="hero fantasy-hero" aria-labelledby="hero-title">
+      <div class="mist mist-back" aria-hidden="true"></div>
+      <div class="mist mist-front" aria-hidden="true"></div>
+      <div class="ember-field" aria-hidden="true"></div>
+      <div class="arcane-seal" aria-hidden="true"><i></i><i></i><i></i><span>✧</span></div>
       <div class="wrap hero-inner">
         <p class="eyebrow"><span aria-hidden="true"></span> Cuaderno de lectura</p>
-        <h1 id="hero-title">Una ruta por<br>el <em>Cosmere.</em></h1>
-        <p class="intro">El orden de lectura de Brandon Sanderson, adaptado a tu punto de partida. En español y sin spoilers.</p>
-        <a class="primary-link" href="#ruta">Ver mi ruta</a>
+        <h1 id="hero-title" tabindex="-1">Mi viaje por<br>el <em>Cosmere.</em></h1>
+        <p class="intro">Sigue el orden de lectura de Brandon Sanderson y guarda tu avance, libro a libro.</p>
+        <a class="primary-link" href="#ruta">Continuar mi viaje</a>
       </div>
     </section>
     <div class="wrap">
-      <section class="progress-panel" aria-labelledby="progress-heading">
+      <section id="progress-panel" class="progress-panel" aria-labelledby="progress-heading">
         <div class="progress-left">
           <p class="eyebrow">Tu siguiente lectura</p>
           <h2 id="progress-heading">El pozo de la ascensión</h2>
           <p id="next-context" class="muted">Nacidos de la Bruma · Era 1</p>
+          <a id="next-reading" href="#ruta">Ir a mi próxima lectura</a>
         </div>
         <div class="progress-right">
           <div class="progress-label"><label for="reading-progress">Ruta principal</label><span id="progress-count"></span></div>
@@ -42,10 +54,19 @@
           <p id="storage-note" class="muted">Tu avance se guarda en este navegador.</p>
         </div>
       </section>
+      <section class="journey" aria-labelledby="journey-title">
+        <div class="journey-heading"><h2 id="journey-title">El camino recorrido</h2><span id="journey-count" class="muted"></span></div>
+        <ol id="journey-stops" class="journey-stops" aria-label="Tramos de la ruta principal"></ol>
+        <div class="reading-archive">
+          <h3>Lecturas completadas</h3>
+          <ul id="finished-books" class="finished-books"></ul>
+          <p id="finished-empty" class="muted" hidden>Tus lecturas terminadas aparecerán aquí.</p>
+        </div>
+      </section>
       <section class="route" id="ruta" aria-labelledby="route-title">
         <div class="route-heading">
-          <div><p class="eyebrow">Biblioteca personal</p><h2 id="route-title">Orden de lectura</h2></div>
-          <label for="status-filter">Mostrar <select id="status-filter"><option value="all">Todos</option><option value="pending">Pendientes</option><option value="read">Terminados</option></select></label>
+          <div><p class="eyebrow">Biblioteca personal</p><h2 id="route-title">El camino por delante</h2></div>
+          <label for="status-filter">Mostrar <select id="status-filter"><option value="pending">Pendientes</option><option value="all">Todos</option><option value="read">Terminados</option></select></label>
         </div>
         <div id="sections" class="sections" role="group" aria-label="Recorridos"></div>
         <p id="section-description" class="section-description"></p>
@@ -53,42 +74,6 @@
         <noscript>Activa JavaScript para ver el recorrido y guardar tu progreso.</noscript>
         <div id="announcements" class="sr-only" aria-live="polite"></div>
       </section>
-      <section id="laminas" class="references" aria-labelledby="references-title">
-        <h2 id="references-title">Láminas de referencia</h2>
-        <p class="muted">Mapas y guías de Nacidos de la Bruma en español.</p>
-        <div class="reference-grid">
-          <a class="reference-card" href="assets/referencias/mapa-imperio-final.png" data-reference="Mapa de El Imperio Final">
-            <img src="assets/referencias/mapa-imperio-final.png" width="1352" height="1048" loading="lazy" alt="Mapa regional con los dominios de El Imperio Final">
-            <span>Mapa de El Imperio Final</span>
-          </a>
-          <a class="reference-card" href="assets/referencias/mapa-luthadel.png" data-reference="Luthadel · Mapa y leyenda">
-            <img src="assets/referencias/mapa-luthadel.png" width="2048" height="1394" loading="lazy" alt="Plano de Luthadel con una leyenda numerada en español">
-            <span>Luthadel · Mapa y leyenda</span>
-          </a>
-          <a class="reference-card" href="assets/referencias/guia-alomancia.png" data-reference="Alomancia · Guía de los ocho metales">
-            <img src="assets/referencias/guia-alomancia.png" width="1422" height="2047" loading="lazy" alt="Guía de ocho metales con sus efectos y títulos brumosos">
-            <span>Alomancia · Guía de los ocho metales</span>
-          </a>
-          <details class="reference-card advanced-reference">
-            <summary>Tabla completa de metales</summary>
-            <p class="muted">Incluye metales y efectos que se introducen después de <cite>El Imperio Final</cite>.</p>
-            <a href="assets/referencias/tabla-metales.png" data-reference="Tabla completa de metales alománticos">Abrir tabla completa</a>
-          </details>
-        </div>
-      </section>
-      <dialog id="reference-viewer" aria-labelledby="reference-title">
-        <div class="reference-toolbar">
-          <h3 id="reference-title"></h3>
-          <div class="reference-actions">
-            <button id="reference-zoom" type="button" aria-pressed="false">Ampliar</button>
-            <a id="reference-original" target="_blank" rel="noopener noreferrer">Abrir original<span class="sr-only"> en otra pestaña</span></a>
-            <form method="dialog"><button type="submit" autofocus>Cerrar</button></form>
-          </div>
-        </div>
-        <div class="reference-scroll" tabindex="0" role="region" aria-label="Imagen de referencia desplazable">
-          <img id="reference-image" alt="">
-        </div>
-      </dialog>
       <section id="fuentes" class="sources" aria-labelledby="source-title">
         <p class="eyebrow">Referencias</p>
         <h2 id="source-title">De dónde sale la ruta</h2>
@@ -105,7 +90,80 @@
         </details>
       </section>
     </div>
+    </div>
+    <div id="saga-page" class="page-view" hidden>
+      <section id="saga" class="hero fantasy-hero saga-hero" aria-labelledby="saga-title">
+        <div class="mist mist-back" aria-hidden="true"></div>
+        <div class="mist mist-front" aria-hidden="true"></div>
+        <div class="ember-field" aria-hidden="true"></div>
+        <div class="wrap hero-inner">
+          <p class="eyebrow">El Imperio Final · Era 1</p>
+          <h1 id="saga-title" tabindex="-1">Nacidos de<br><em>la Bruma.</em></h1>
+          <p class="intro">Recorre la trilogía original, explora la alomancia y abre el atlas de sus dominios.</p>
+          <nav class="saga-index" aria-label="Secciones de la saga">
+            <a href="#libros">Libros</a><a href="#alomancia">Alomancia</a><a href="#mapas">Mapas</a>
+          </nav>
+        </div>
+      </section>
+      <div class="wrap saga-content">
+        <section id="libros" class="saga-section" aria-labelledby="saga-books-title">
+          <h2 id="saga-books-title">La trilogía original</h2>
+          <div id="saga-books" class="saga-books"></div>
+        </section>
+        <section id="alomancia" class="saga-section" aria-labelledby="metals-title">
+          <h2 id="metals-title">Círculo de alomancia</h2>
+          <p class="muted">Elige un metal para consultar su efecto y el título del brumoso que puede quemarlo.</p>
+          <div class="alchemy">
+            <div id="metal-wheel" class="metal-wheel" role="group" aria-label="Los ocho metales"></div>
+            <div class="metal-info" aria-live="polite" aria-atomic="true">
+              <p class="eyebrow" id="metal-group">Metal físico</p>
+              <h3 id="metal-name">Hierro</h3>
+              <p id="metal-effect">Atrae hacia el alomántico los metales externos cercanos.</p>
+              <p id="metal-misting" class="metal-misting">Brumoso · Atraedor</p>
+            </div>
+          </div>
+          <div class="reference-grid metal-references">
+          <a class="reference-card" href="assets/referencias/guia-alomancia.png" data-reference="Alomancia · Guía de los ocho metales">
+            <img src="assets/referencias/guia-alomancia.png" width="1422" height="2047" loading="lazy" alt="Guía de ocho metales con sus efectos y títulos brumosos">
+            <span>Alomancia · Guía de los ocho metales</span>
+          </a>
+          <details class="reference-card advanced-reference">
+            <summary>Tabla completa de metales</summary>
+            <p class="muted">Incluye metales y efectos que se introducen después de <cite>El Imperio Final</cite>.</p>
+            <a href="assets/referencias/tabla-metales.png" data-reference="Tabla completa de metales alománticos">Abrir tabla completa</a>
+          </details>
+          </div>
+        </section>
+      <section id="mapas" class="references" aria-labelledby="references-title">
+        <h2 id="references-title">Atlas de El Imperio Final</h2>
+        <p class="muted">Del mapa de los dominios al plano de Luthadel. Abre una lámina para ampliar los detalles.</p>
+        <div class="reference-grid">
+          <a class="reference-card" href="assets/referencias/mapa-imperio-final.png" data-reference="Mapa de El Imperio Final">
+            <img src="assets/referencias/mapa-imperio-final.png" width="1352" height="1048" loading="lazy" alt="Mapa regional con los dominios de El Imperio Final">
+            <span>Mapa de El Imperio Final</span>
+          </a>
+          <a class="reference-card" href="assets/referencias/mapa-luthadel.png" data-reference="Luthadel · Mapa y leyenda">
+            <img src="assets/referencias/mapa-luthadel.png" width="2048" height="1394" loading="lazy" alt="Plano de Luthadel con una leyenda numerada en español">
+            <span>Luthadel · Mapa y leyenda</span>
+          </a>
+        </div>
+      </section>
+      </div>
+    </div>
+      <dialog id="reference-viewer" aria-labelledby="reference-title">
+        <div class="reference-toolbar">
+          <h3 id="reference-title"></h3>
+          <div class="reference-actions">
+            <button id="reference-zoom" type="button" aria-pressed="false">Ampliar</button>
+            <a id="reference-original" target="_blank" rel="noopener noreferrer">Abrir original<span class="sr-only"> en otra pestaña</span></a>
+            <form method="dialog"><button type="submit" autofocus>Cerrar</button></form>
+          </div>
+        </div>
+        <div class="reference-scroll" tabindex="0" role="region" aria-label="Imagen de referencia desplazable">
+          <img id="reference-image" alt="">
+        </div>
+      </dialog>
   </main>
-  <footer class="wrap footer"><span>El Códice de los Mundos</span><a href="#inicio">Volver al inicio</a></footer>
+  <footer class="wrap footer"><span>El Códice de los Mundos</span><a href="#inicio">Mi viaje</a></footer>
 </body>
 </html>
