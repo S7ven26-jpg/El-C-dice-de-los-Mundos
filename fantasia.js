@@ -3,7 +3,7 @@ const sagaPage = document.querySelector('#saga-page');
 const journalPage = document.querySelector('#journal-page');
 const pageLinks = document.querySelectorAll('[data-page]');
 const skipLink = document.querySelector('#skip-link');
-const sagaAnchors = new Set(['#saga', '#libros', '#personajes', '#vin', '#kelsier', '#cast-title', '#alomancia', '#mapas', '#laminas']);
+const sagaAnchors = new Set(['#saga', '#libros', '#personajes', '#vin', '#kelsier', '#sazed', '#cast-title', '#alomancia', '#mapas', '#laminas']);
 
 function showPage() {
   const hash = location.hash;
