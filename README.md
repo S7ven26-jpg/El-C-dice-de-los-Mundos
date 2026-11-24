@@ -36,5 +36,5 @@ Abre la dirección web en Safari y usa **Compartir → Añadir a pantalla de ini
 
 ## Personajes de Luthadel
 
-En **Nacidos de la Bruma → Personajes** están las fichas ilustradas de Vin, Kelsier y Sazed, y cuatro fichas breves del primer libro. La galería adicional de Vin se habilita después de marcar los tres tomos de la Era 1 como leídos.
- La escena de acción de Kelsier se habilita tras El Imperio Final y el retrato reservado, tras la Era 1 e Historia secreta.
+En **Nacidos de la Bruma → Personajes** están las fichas ilustradas de Vin, Kelsier, Sazed y el Lord Legislador, y cuatro fichas breves del primer libro. La galería adicional de Vin se habilita después de marcar los tres tomos de la Era 1 como leídos.
+ La escena de acción de Kelsier se habilita tras El Imperio Final y el retrato reservado, tras la Era 1 e Historia secreta. La ilustración de Ari Ibarra del Lord Legislador se habilita al terminar El Imperio Final.

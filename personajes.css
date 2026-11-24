@@ -58,3 +58,10 @@
 @media (max-width: 650px) {
   #sazed { scroll-margin-top: 7.4rem; }
 }
+
+#lord-legislador { scroll-margin-top: 6rem; }
+.lord-dossier { margin-top: 2rem; background: radial-gradient(ellipse at top left,#633b2d7a,transparent 72%),var(--panel); }
+.lord-portrait { background: #171b22; }
+@media (max-width: 650px) {
+  #lord-legislador { scroll-margin-top: 7.4rem; }
+}
