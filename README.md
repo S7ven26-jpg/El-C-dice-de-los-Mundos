@@ -23,3 +23,7 @@ La pestaña **Nacidos de la Bruma** reúne los libros de la primera era, el cír
 ## Mi viaje y efectos visuales
 
 Los hitos del inicio llevan al tramo correspondiente. Puedes marcar libros como leídos tanto en la ruta como en la pestaña de la saga. El botón **Pausar efectos** detiene la bruma, las partículas y las demás animaciones.
+
+## Carta de lectura
+
+Abre **Mi viaje → Explorar la carta** y selecciona cualquiera de los 24 nodos. La ficha de cada libro muestra datos sin spoilers y permite actualizar tu progreso. El mismo avance se refleja en el mapa, la lista y la pestaña de la saga.

@@ -9,10 +9,12 @@
   <title>Ruta de lectura · El Códice de los Mundos</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="fantasia.css">
+  <link rel="stylesheet" href="atlas.css">
   <script src="books.js" defer></script>
   <script src="app.js" defer></script>
   <script src="references.js" defer></script>
   <script src="fantasia.js" defer></script>
+  <script src="atlas.js" defer></script>
 </head>
 <body>
   <a class="skip" id="skip-link" href="#ruta">Ir al contenido</a>
@@ -34,10 +36,10 @@
       <div class="ember-field" aria-hidden="true"></div>
       <div class="arcane-seal" aria-hidden="true"><i></i><i></i><i></i><span>✧</span></div>
       <div class="wrap hero-inner">
-        <p class="eyebrow"><span aria-hidden="true"></span> Cuaderno de lectura</p>
-        <h1 id="hero-title" tabindex="-1">Mi viaje por<br>el <em>Cosmere.</em></h1>
+        <p class="eyebrow"><span aria-hidden="true"></span> El Códice de los Mundos</p>
+        <h1 id="hero-title" tabindex="-1">Orden de lectura<br>del <em>Cosmere</em></h1>
         <p class="intro">Sigue tu ruta de lectura desde Nacidos de la Bruma y guarda tu avance, libro a libro.</p>
-        <a class="primary-link" href="#ruta">Continuar mi viaje</a>
+        <a class="primary-link" href="#atlas">Explorar la carta</a>
       </div>
     </section>
     <div class="wrap">
@@ -54,8 +56,26 @@
           <p id="storage-note" class="muted">Tu avance se guarda en este navegador.</p>
         </div>
       </section>
+      <section id="atlas" class="star-atlas" aria-labelledby="atlas-title">
+        <div class="atlas-heading">
+          <div><h2 id="atlas-title">Carta de lectura</h2><p class="muted">Selecciona un libro para ver su ficha y marcarlo como leído.</p></div>
+          <a href="#ruta">Ver lista completa</a>
+        </div>
+        <ul class="atlas-legend" aria-label="Leyenda">
+          <li class="key-read">Leído</li><li class="key-next">Siguiente</li><li class="key-pending">Pendiente</li>
+        </ul>
+        <div class="atlas-sky">
+          <div class="atlas-orbits" aria-hidden="true"></div>
+          <svg id="atlas-lines" aria-hidden="true" width="100%" height="100%">
+            <path id="atlas-trace"></path>
+            <path id="atlas-read-trace"></path>
+            <path id="atlas-current-trace"></path>
+          </svg>
+          <ol id="atlas-books" class="atlas-books" aria-label="Libros en orden de lectura"></ol>
+        </div>
+      </section>
       <section class="journey" aria-labelledby="journey-title">
-        <div class="journey-heading"><h2 id="journey-title">El camino recorrido</h2><span id="journey-count" class="muted"></span></div>
+        <div class="journey-heading"><h2 id="journey-title">Tramos del recorrido</h2><span id="journey-count" class="muted"></span></div>
         <ol id="journey-stops" class="journey-stops" aria-label="Tramos de la ruta principal"></ol>
         <div class="reading-archive">
           <h3>Lecturas completadas</h3>
@@ -89,6 +109,7 @@
         <details><summary>Ver fuentes externas</summary>
           <p class="muted">Los enlaces externos pueden mostrar sinopsis de libros que aún no has leído.</p>
           <ul>
+            <li><a href="https://cosmere.es/orden-de-lectura-del-cosmere/" target="_blank" rel="noopener noreferrer">Cosmere.es · Referencia visual de la carta de lectura</a></li>
             <li><a href="https://www.youtube.com/watch?v=0mC8dsQJK7w" target="_blank" rel="noopener noreferrer">El orden de lectura explicado por Brandon Sanderson</a></li>
             <li><a href="https://www.brandonsanderson.com/pages/where-do-i-start" target="_blank" rel="noopener noreferrer">Guía oficial «Where do I start?»</a></li>
             <li><a href="https://www.brandonsanderson.com/pages/the-mistborn-saga-the-original-trilogy" target="_blank" rel="noopener noreferrer">Guía de la trilogía original y sus lecturas complementarias</a></li>
@@ -159,6 +180,17 @@
       </section>
       </div>
     </div>
+      <dialog id="atlas-book-dialog" aria-labelledby="atlas-book-title">
+        <div class="atlas-book-sheet">
+          <form method="dialog"><button class="atlas-close" type="submit" autofocus>Cerrar</button></form>
+          <p id="atlas-book-stage" class="eyebrow"></p>
+          <h2 id="atlas-book-title"></h2>
+          <p id="atlas-book-original" class="muted"></p>
+          <p id="atlas-book-note"></p>
+          <p id="atlas-book-warning" class="book-note"></p>
+          <button id="atlas-book-toggle" type="button"></button>
+        </div>
+      </dialog>
       <dialog id="reference-viewer" aria-labelledby="reference-title">
         <div class="reference-toolbar">
           <h3 id="reference-title"></h3>

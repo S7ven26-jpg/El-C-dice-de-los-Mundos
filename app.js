@@ -66,8 +66,9 @@ function toggleBook(id, checked, fromSaga = false) {
   updateProgress();
   renderBooks();
   const focus = document.getElementById(`${fromSaga ? 'saga' : 'read'}-${id}`) || statusFilter;
-  focus.focus({ preventScroll:true });
+  if (!document.querySelector('#atlas-book-dialog[open]')) focus.focus({ preventScroll:true });
   announcements.textContent = `${titles.get(id)}: ${checked ? 'terminado' : 'pendiente'}.`;
+  document.dispatchEvent(new Event('codice-progress'));
   if (checked) document.dispatchEvent(new Event('reading-complete'));
 }
 
@@ -132,9 +133,8 @@ function bookRow(book, nextId) {
   copy.append(heading);
   if (original !== title) copy.append(el('p','original',original));
   if (note) copy.append(el('p','book-note',note));
-  if (id === 'secreta' && !done && !completed.has('brazales')) {
-    copy.append(el('p','book-note spoiler-note','Aviso sin spoilers: termina la Era 1 antes de abrir esta novela corta. Sanderson advierte que también adelanta detalles menores de Brazales de duelo. Si quieres evitarlos, léela después de ese libro.'));
-  }
+  const warning = readingWarning(id);
+  if (warning) copy.append(el('p','book-note spoiler-note',warning));
   const action = el('div','book-action');
   if (prerequisite && !completed.has(prerequisite) && !done) {
     action.append(el('span','badge','Para más adelante'));
@@ -154,6 +154,15 @@ function bookRow(book, nextId) {
   action.append(label);
   row.append(copy,action);
   return row;
+}
+
+function readingWarning(id) {
+  if (completed.has(id)) return '';
+  if (id === 'secreta' && !completed.has('brazales')) {
+    return 'Aviso sin spoilers: termina la Era 1 antes de abrir esta novela corta. Si quieres evitar detalles menores de Brazales de duelo, léela después de ese libro.';
+  }
+  if (id === 'antologia') return 'Esta antología contiene relatos que adelantan detalles de otras obras. Está situada al final de tu recorrido.';
+  return '';
 }
 
 function matchesFilter(book) {
