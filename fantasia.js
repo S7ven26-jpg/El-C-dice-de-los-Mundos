@@ -1,5 +1,6 @@
 const homePage = document.querySelector('#home-page');
 const sagaPage = document.querySelector('#saga-page');
+const journalPage = document.querySelector('#journal-page');
 const pageLinks = document.querySelectorAll('[data-page]');
 const skipLink = document.querySelector('#skip-link');
 const sagaAnchors = new Set(['#saga', '#libros', '#alomancia', '#mapas', '#laminas']);
@@ -7,17 +8,19 @@ const sagaAnchors = new Set(['#saga', '#libros', '#alomancia', '#mapas', '#lamin
 function showPage() {
   const hash = location.hash;
   const isSaga = sagaAnchors.has(hash);
-  const changed = sagaPage.hidden === isSaga;
-  homePage.hidden = isSaga;
+  const isJournal = hash === '#diario' || hash === '#chapter-form';
+  const page = isJournal ? journalPage : isSaga ? sagaPage : homePage;
+  const changed = page.hidden;
+  homePage.hidden = isSaga || isJournal;
   sagaPage.hidden = !isSaga;
-  const page = isSaga ? sagaPage : homePage;
-  const active = isSaga ? 'saga' : 'home';
+  journalPage.hidden = !isJournal;
+  const active = isJournal ? 'journal' : isSaga ? 'saga' : 'home';
   for (const link of pageLinks) {
     if (link.dataset.page === active) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   }
-  skipLink.href = isSaga ? '#libros' : '#ruta';
-  document.title = isSaga ? 'Nacidos de la Bruma · El Códice de los Mundos' : 'Mi viaje · El Códice de los Mundos';
+  skipLink.href = isJournal ? '#chapter-form' : isSaga ? '#libros' : '#ruta';
+  document.title = `${{journal:'Diario', saga:'Nacidos de la Bruma', home:'Mi viaje'}[active]} · El Códice de los Mundos`;
   if (changed) {
     page.classList.remove('page-arriving');
     requestAnimationFrame(() => {
@@ -25,7 +28,7 @@ function showPage() {
     });
   }
   const anchor = hash === '#laminas' ? 'mapas' : hash.slice(1);
-  if (changed && ['inicio','saga'].includes(anchor)) {
+  if (changed && ['inicio','saga','diario'].includes(anchor)) {
     page.querySelector('h1')?.focus({ preventScroll:true });
   }
   if (anchor) document.getElementById(anchor)?.scrollIntoView({ block:'start' });
@@ -79,7 +82,7 @@ for (const field of document.querySelectorAll('.ember-field')) {
 let burst;
 document.addEventListener('reading-complete', () => {
   if (document.documentElement.dataset.motion === 'paused') return;
-  const anchor = sagaPage.hidden ? '#progress-panel' : '#saga-books';
+  const anchor = !journalPage.hidden ? '#chapter-form' : sagaPage.hidden ? '#progress-panel' : '#saga-books';
   const panel = document.querySelector(anchor);
   panel.classList.remove('reading-spark');
   cancelAnimationFrame(burst);

@@ -50,6 +50,7 @@ function updateBookDialog() {
   document.querySelector('#atlas-book-note').textContent = note || group.note;
   document.querySelector('#atlas-book-warning').textContent = warning;
   atlasToggle.textContent = done ? '✓ Leído · Desmarcar' : 'Marcar como leído';
+  document.querySelector('#atlas-book-journal').hidden = id !== 'pozo';
 }
 
 atlasToggle.addEventListener('click', () => {
@@ -120,3 +121,21 @@ new ResizeObserver(drawAtlas).observe(atlasBooks);
 document.addEventListener('codice-progress', syncAtlas);
 positionAtlas();
 syncAtlas();
+
+document.querySelector('#atlas-book-journal').addEventListener('click', () => bookDialog.close());
+
+document.addEventListener('reading-complete', event => {
+  if (document.documentElement.dataset.motion === 'paused') return;
+  const position = routePositions.get(event.detail);
+  if (!position || position >= atlasEntries.length) return;
+  const segment = atlasTrace.getAttribute('d')?.match(/M[^M]*/g)?.[position - 1];
+  if (!segment) return;
+  const sweep = document.querySelector('#atlas-sweep');
+  sweep.setAttribute('d',segment);
+  sweep.classList.remove('atlas-sweep');
+  sweep.removeAttribute('hidden');
+  requestAnimationFrame(() => sweep.classList.add('atlas-sweep'));
+});
+document.querySelector('#atlas-sweep').addEventListener('animationend', event => {
+  event.currentTarget.setAttribute('hidden','');
+});

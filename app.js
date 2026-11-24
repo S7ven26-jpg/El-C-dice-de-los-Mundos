@@ -58,18 +58,28 @@ function updateProgress() {
 function toggleBook(id, checked, fromSaga = false) {
   if (checked) completed.add(id);
   else completed.delete(id);
+  const stored = saveReadingProgress();
+  const focus = document.getElementById(`${fromSaga ? 'saga' : 'read'}-${id}`) || statusFilter;
+  if (!document.querySelector('#atlas-book-dialog[open]') && document.querySelector('#journal-page').hidden) {
+    focus.focus({ preventScroll:true });
+  }
+  announcements.textContent = `${titles.get(id)}: ${checked ? 'terminado' : 'pendiente'}.`;
+  if (checked) document.dispatchEvent(new CustomEvent('reading-complete', {detail:id}));
+  return stored;
+}
+
+function saveReadingProgress() {
+  let stored = true;
   try {
     localStorage.setItem(storageKey, JSON.stringify([...completed]));
   } catch {
+    stored = false;
     document.querySelector('#storage-note').textContent = 'Tu avance se conserva mientras esta página esté abierta.';
   }
   updateProgress();
   renderBooks();
-  const focus = document.getElementById(`${fromSaga ? 'saga' : 'read'}-${id}`) || statusFilter;
-  if (!document.querySelector('#atlas-book-dialog[open]')) focus.focus({ preventScroll:true });
-  announcements.textContent = `${titles.get(id)}: ${checked ? 'terminado' : 'pendiente'}.`;
   document.dispatchEvent(new Event('codice-progress'));
-  if (checked) document.dispatchEvent(new Event('reading-complete'));
+  return stored;
 }
 
 function renderJourney(next) {

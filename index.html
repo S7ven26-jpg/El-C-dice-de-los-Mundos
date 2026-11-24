@@ -2,19 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Ruta personal de lectura por el Cosmere, en español y sin spoilers.">
   <meta name="theme-color" content="#10141b">
+  <meta name="apple-mobile-web-app-title" content="El Códice">
+  <link rel="apple-touch-icon" href="assets/codice-180.png">
+  <link rel="manifest" href="codice.webmanifest">
   <meta name="robots" content="noindex, nofollow">
   <title>Ruta de lectura · El Códice de los Mundos</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="fantasia.css">
   <link rel="stylesheet" href="atlas.css">
+  <link rel="stylesheet" href="diario.css">
   <script src="books.js" defer></script>
   <script src="app.js" defer></script>
   <script src="references.js" defer></script>
   <script src="fantasia.js" defer></script>
   <script src="atlas.js" defer></script>
+  <script src="diario.js" defer></script>
 </head>
 <body>
   <a class="skip" id="skip-link" href="#ruta">Ir al contenido</a>
@@ -23,6 +28,7 @@
       <a class="brand" href="#inicio"><span class="sigil" aria-hidden="true">✧</span><span>El Códice <em>de los Mundos</em></span></a>
       <nav aria-label="Navegación principal">
         <a href="#inicio" data-page="home" aria-current="page">Mi viaje</a>
+        <a href="#diario" data-page="journal">Diario</a>
         <a href="#saga" data-page="saga">Nacidos de la Bruma</a>
       </nav>
       <button id="motion-control" type="button" aria-pressed="false">Pausar efectos</button>
@@ -49,6 +55,7 @@
           <h2 id="progress-heading">El pozo de la ascensión</h2>
           <p id="next-context" class="muted">Nacidos de la Bruma · Era 1</p>
           <a id="next-reading" href="#ruta">Ir a mi próxima lectura</a>
+          <a id="continue-pozo" href="#diario">Abrir diario de lectura</a>
         </div>
         <div class="progress-right">
           <div class="progress-label"><label for="reading-progress">Ruta principal</label><span id="progress-count"></span></div>
@@ -70,6 +77,7 @@
             <path id="atlas-trace"></path>
             <path id="atlas-read-trace"></path>
             <path id="atlas-current-trace"></path>
+            <path id="atlas-sweep" pathLength="1" hidden></path>
           </svg>
           <ol id="atlas-books" class="atlas-books" aria-label="Libros en orden de lectura"></ol>
         </div>
@@ -180,6 +188,44 @@
       </section>
       </div>
     </div>
+      <section id="journal-page" class="wrap journal-page" aria-labelledby="journal-title" hidden>
+        <header id="diario" class="journal-header">
+          <p class="eyebrow">Diario · Nacidos de la Bruma</p>
+          <h1 id="journal-title" tabindex="-1">El pozo de la ascensión</h1>
+          <p class="muted">Registra el último capítulo que terminaste y guarda tus teorías. Tus notas se guardan en este dispositivo.</p>
+        </header>
+        <div class="journal-grid">
+          <form id="chapter-form" class="journal-card">
+            <h2>Mi avance</h2>
+            <label for="chapter-select">Última sección terminada</label>
+            <select id="chapter-select"></select>
+            <progress id="chapter-progress" value="0" max="61" aria-label="Avance del libro"></progress>
+            <p class="muted" id="chapter-meter"></p>
+            <button type="submit">Guardar avance</button>
+          </form>
+          <form id="note-form" class="journal-card">
+            <h2>Notas y teorías</h2>
+            <label for="journal-note">Anotación para esta sección</label>
+            <p class="muted" id="note-chapter"></p>
+            <textarea id="journal-note" rows="5" maxlength="6000"></textarea>
+            <button id="save-note" type="submit">Guardar nota</button>
+            <div id="saved-notes" class="saved-notes" aria-label="Notas guardadas"></div>
+          </form>
+        </div>
+        <section class="journal-card journal-unlocks">
+          <h2>Recursos de lectura</h2>
+          <p class="muted">Abre mapas y repasos, y descubre nuevas preguntas de reflexión conforme avances.</p>
+          <p id="locked-resources" class="muted"></p>
+          <ul id="journal-resources"></ul>
+        </section>
+        <section class="journal-card journal-transfer">
+          <h2>Copia de seguridad</h2>
+          <p class="muted">Transfiere tus lecturas, capítulos y notas entre dispositivos. La importación conserva las lecturas marcadas, toma el capítulo más avanzado y mantiene las dos versiones de una nota si son diferentes.</p>
+          <div class="journal-actions"><button id="export-journal" type="button">Exportar copia</button><button id="import-journal" type="button">Importar copia</button></div>
+          <input type="file" id="journal-file" accept=".json,application/json" hidden>
+        </section>
+        <p id="journal-feedback" role="status"></p>
+      </section>
       <dialog id="atlas-book-dialog" aria-labelledby="atlas-book-title">
         <div class="atlas-book-sheet">
           <form method="dialog"><button class="atlas-close" type="submit" autofocus>Cerrar</button></form>
@@ -189,6 +235,7 @@
           <p id="atlas-book-note"></p>
           <p id="atlas-book-warning" class="book-note"></p>
           <button id="atlas-book-toggle" type="button"></button>
+          <a id="atlas-book-journal" href="#diario" hidden>Abrir diario</a>
         </div>
       </dialog>
       <dialog id="reference-viewer" aria-labelledby="reference-title">

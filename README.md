@@ -27,3 +27,9 @@ Los hitos del inicio llevan al tramo correspondiente. Puedes marcar libros como 
 ## Carta de lectura
 
 Abre **Mi viaje → Explorar la carta** y selecciona cualquiera de los 24 nodos. La ficha de cada libro muestra datos sin spoilers y permite actualizar tu progreso. El mismo avance se refleja en el mapa, la lista y la pestaña de la saga.
+
+## Diario e iPhone
+
+En **Diario** puedes registrar el último capítulo completado de *El pozo de la ascensión* y guardar tus notas. Completar el epílogo actualiza el estado del libro en la carta estelar.
+
+Abre la dirección web en Safari y usa **Compartir → Añadir a pantalla de inicio → Abrir como app web**. El avance y las notas se guardan en cada dispositivo. Para llevarlos a otro, usa **Diario → Exportar copia**, guarda el archivo en iCloud Drive y ábrelo en el otro dispositivo con **Diario → Importar copia**.
