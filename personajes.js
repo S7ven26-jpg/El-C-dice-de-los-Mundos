@@ -1,22 +1,30 @@
-const vinLockedMessage = document.querySelector('#vin-locked');
-const vinExtra = document.querySelector('#vin-extra-art');
-const vinExtraGrid = document.querySelector('#vin-extra-grid');
-const vinExtraArt = document.querySelector('#vin-extra-template');
+const characterGalleries = [...document.querySelectorAll('[data-reading-gate]')].map(container => {
+  const gate = container.dataset.readingGate.split(' ');
+  const message = container.querySelector(':scope > p');
+  const details = container.querySelector('details');
+  const grid = details.querySelector('.character-gallery');
+  const template = container.querySelector('template');
 
-function updateCharacterGallery() {
-  const unlocked = principalGroups[0].books.every(([id]) => completed.has(id));
-  vinLockedMessage.hidden = unlocked;
-  vinExtra.hidden = !unlocked;
-  if (!unlocked) {
-    vinExtra.open = false;
-    vinExtraGrid.replaceChildren();
+  details.addEventListener('toggle', () => {
+    if (details.open && !details.hidden && !grid.firstElementChild) {
+      grid.append(template.content.cloneNode(true));
+    }
+  });
+
+  return {gate, message, details, grid};
+});
+
+function updateCharacterGalleries() {
+  for (const {gate, message, details, grid} of characterGalleries) {
+    const unlocked = gate.every(id => completed.has(id));
+    message.hidden = unlocked;
+    details.hidden = !unlocked;
+    if (!unlocked) {
+      details.open = false;
+      grid.replaceChildren();
+    }
   }
 }
 
-vinExtra.addEventListener('toggle', () => {
-  if (vinExtra.open && !vinExtra.hidden && !vinExtraGrid.firstElementChild) {
-    vinExtraGrid.append(vinExtraArt.content.cloneNode(true));
-  }
-});
-document.addEventListener('codice-progress', updateCharacterGallery);
-updateCharacterGallery();
+document.addEventListener('codice-progress', updateCharacterGalleries);
+updateCharacterGalleries();

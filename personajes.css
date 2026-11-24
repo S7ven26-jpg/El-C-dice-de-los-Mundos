@@ -36,3 +36,16 @@
   .character-facts div { grid-template-columns: 5rem 1fr; }
   .character-gallery-extra { grid-template-columns: 1fr; }
 }
+
+#kelsier, #cast-title { scroll-margin-top: 6rem; }
+.character-index { display: flex; flex-wrap: wrap; gap: .45rem .65rem; margin-top: .85rem; }
+.character-index a { padding: .36rem .64rem; border: 1px solid var(--line); color: var(--brass); text-decoration: none; }
+.character-index a:hover { border-color: var(--brass); }
+.kelsier-dossier { margin-top: 2rem; background: radial-gradient(ellipse at top left,#59462c7a,transparent 72%),var(--panel); }
+.kelsier-portrait a { display: grid; place-items: center; padding: 1rem 1rem 2.6rem; }
+.kelsier-portrait img { width: auto; height: min(100%,26rem); max-width: 100%; object-fit: contain; }
+.character-art-lock .character-gallery { margin-top: .8rem; }
+@media (max-width: 650px) {
+  #kelsier, #cast-title { scroll-margin-top: 7.4rem; }
+  .kelsier-portrait img { max-height: 100%; }
+}
