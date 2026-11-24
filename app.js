@@ -10,10 +10,10 @@ const nextReading = document.querySelector('#next-reading');
 const principalGroups = groups.filter(group => group.section === 'principal');
 const principal = principalGroups
   .flatMap(group => group.books.map(book => ({ book, group })));
+const routePositions = new Map(principal.map(({book}, index) => [book[0], index + 1]));
 const titles = new Map(groups.flatMap(group => group.books.map(book => [book[0], book[1]])));
 const descriptions = {
-  principal: 'Sigue la secuencia de Sanderson. Las pausas entre tomos del Archivo tienen su propia pestaña.',
-  pausas: 'Puedes intercalar estas lecturas después de El camino de los reyes, Danzante del filo o Esquirla del amanecer.',
+  principal: 'Tu orden personal desde Nacidos de la Bruma. La numeración se conserva al filtrar.',
   complementos: 'Relatos, formatos alternativos y novedades que puedes añadir al recorrido.',
   fuera: 'Una selección de lecturas de Sanderson en otros universos.',
 };
@@ -46,7 +46,7 @@ function updateProgress() {
   progress.value = count;
   document.querySelector('#progress-count').textContent = `${count} de ${principal.length}`;
   document.querySelector('#progress-heading').textContent = next ? next.book[1] : 'Ruta principal completada';
-  document.querySelector('#next-context').textContent = next ? next.group.title : 'Explora las pausas y los complementos.';
+  document.querySelector('#next-context').textContent = next ? next.group.title : 'Explora los complementos.';
   nextReading.hidden = !next;
   nextReading.dataset.book = next?.book[0] ?? '';
   document.querySelector('#journey-count').textContent = `${count} de ${principal.length} en la ruta principal`;
@@ -81,10 +81,9 @@ function renderJourney(next) {
     const current = group === next?.group;
     button.dataset.state = done ? 'read' : current ? 'current' : 'pending';
     if (current) button.setAttribute('aria-current','step');
-    const shortTitles = ['Era 1', 'Independientes', 'El Archivo I', 'El Archivo II', 'El Archivo III', 'El Archivo IV', 'El Archivo V'];
     const symbol = el('span','node-symbol',done ? '✓' : current ? '✧' : '◇');
     symbol.setAttribute('aria-hidden','true');
-    button.append(symbol, el('span','node-title',shortTitles[principalGroups.indexOf(group)]), el('span','node-status',done ? 'Completado' : current ? 'En curso' : read ? `${read} de ${group.books.length}` : 'Pendiente'));
+    button.append(symbol, el('span','node-title',group.shortTitle), el('span','node-status',done ? 'Completado' : current ? 'En curso' : read ? `${read} de ${group.books.length}` : 'Pendiente'));
     button.setAttribute('aria-label',`${group.title}, ${read} de ${group.books.length} completados`);
     button.addEventListener('click', () => jumpToBook((group.books.find(book => !completed.has(book[0])) ?? group.books[0])[0]));
     stage.append(button);
@@ -99,7 +98,7 @@ function renderJourney(next) {
 const trilogyNotes = [
   'Una historia de atracos y rebelión en la que se presentan Luthadel y la alomancia.',
   'Lee este tomo después de El Imperio Final. Puedes consultar aquí los mapas y los ocho metales básicos mientras avanzas.',
-  'Último tomo de la primera era. La ruta sitúa la segunda era en las pausas del Archivo de las Tormentas.',
+  'Último tomo de la primera era. En tu ruta, Elantris es la siguiente lectura al terminar la trilogía.',
 ];
 
 function renderSagaBooks(next) {
@@ -125,11 +124,17 @@ function bookRow(book, nextId) {
   const next = id === nextId;
   const row = el('li', `book${done ? ' book-read' : ''}${next ? ' book-next' : ''}`);
   const copy = el('div', 'book-copy');
-  const heading = el('h4','',title);
+  const position = routePositions.get(id);
+  const heading = el('h4','');
+  if (position) heading.append(el('span','book-position',`${position}. `));
+  heading.append(title);
   heading.id = `title-${id}`;
   copy.append(heading);
   if (original !== title) copy.append(el('p','original',original));
   if (note) copy.append(el('p','book-note',note));
+  if (id === 'secreta' && !done && !completed.has('brazales')) {
+    copy.append(el('p','book-note spoiler-note','Aviso sin spoilers: termina la Era 1 antes de abrir esta novela corta. Sanderson advierte que también adelanta detalles menores de Brazales de duelo. Si quieres evitarlos, léela después de ese libro.'));
+  }
   const action = el('div','book-action');
   if (prerequisite && !completed.has(prerequisite) && !done) {
     action.append(el('span','badge','Para más adelante'));
@@ -152,7 +157,6 @@ function bookRow(book, nextId) {
 }
 
 function matchesFilter(book) {
-  if (book[0] === 'secreta' && !completed.has('brazales') && !completed.has('secreta')) return false;
   if (statusFilter.value === 'all') return true;
   return completed.has(book[0]) === (statusFilter.value === 'read');
 }

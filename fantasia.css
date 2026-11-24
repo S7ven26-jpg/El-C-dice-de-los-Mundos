@@ -158,3 +158,16 @@ html[data-motion="paused"] *, html[data-motion="paused"] *::before, html[data-mo
   .alchemy { padding: .6rem; }
   .metal-wheel { width: min(100%, 22rem); }
 }
+.journey-stops { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.journey-stops::before, .journey-stops::after { left: 6.5%; }
+.journey-stops::before { right: 6.5%; }
+.journey-stops::after { width: calc(var(--journey-fill) * .87); }
+.book-position { color: var(--brass); font: 650 .85rem/1 var(--body); margin-right: .25rem; }
+.spoiler-note { max-width: 58ch; }
+.upcoming-books { list-style: none; margin: 1rem 0 0; padding: 0; }
+.upcoming-books li { display: grid; gap: .15rem; padding: .72rem .85rem; border-top: 1px solid var(--line); }
+.upcoming-books span { color: var(--muted); }
+@media (max-width: 800px) {
+  .journey-stops { grid-template-columns: 1fr; }
+  .journey-stops::before { left: 2.25rem; }
+}

@@ -1,54 +1,53 @@
 const groups = [
-  { id:'bruma-1', section:'principal', title:'Nacidos de la Bruma · Era 1', note:'Completa la trilogía original en orden.', books:[
-    ['final','El Imperio Final','The Final Empire'],
+  { id:'bruma-1', section:'principal', title:'Nacidos de la Bruma · Era 1', shortTitle:'Era 1', note:'Completa la trilogía original en orden antes de pasar a la Era 2.', books:[
+    ['final','El Imperio Final','Mistborn: The Final Empire'],
     ['pozo','El pozo de la ascensión','The Well of Ascension'],
     ['heroe','El héroe de las eras','The Hero of Ages'],
   ]},
-  { id:'puente', section:'principal', title:'Dos novelas independientes', note:'Las dos lecturas que Sanderson propone antes de abrir el Archivo.', books:[
-    ['aliento','El aliento de los dioses','Warbreaker'],
-    ['trenza','Trenza del mar Esmeralda','Tress of the Emerald Sea'],
+  { id:'sel', section:'principal', title:'Autoconclusivos para respirar', shortTitle:'Autoconclusivos', note:'Una novela y una lectura breve antes de empezar el Archivo.', books:[
+    ['elantris','Elantris','Elantris'],
+    ['alma','El alma del emperador','The Emperor’s Soul','Novela corta · también en Arcanum ilimitado'],
   ]},
-  { id:'archivo-1', section:'principal', title:'El Archivo de las Tormentas · Inicio', note:'Tras el primer tomo, el autor propone una pausa opcional. Puedes elegir una lectura de «Pausas» o seguir con el Archivo.', books:[
+  { id:'archivo', section:'principal', title:'El Archivo de las Tormentas', shortTitle:'El Archivo', note:'Los primeros cuatro tomos, con dos novelas cortas intercaladas.', books:[
     ['reyes','El camino de los reyes','The Way of Kings'],
-  ]},
-  { id:'archivo-2', section:'principal', title:'El Archivo de las Tormentas · Segundo tramo', note:'La novela corta va después del segundo tomo. Aquí puedes hacer otra pausa opcional.', books:[
     ['palabras','Palabras radiantes','Words of Radiance'],
     ['danza','Danzante del filo','Edgedancer','Novela corta · también en Arcanum ilimitado'],
-  ]},
-  { id:'archivo-3', section:'principal', title:'El Archivo de las Tormentas · Tercer tramo', note:'La novela corta va después del tercer tomo. Aquí queda otra pausa opcional.', books:[
     ['jura','Juramentada','Oathbringer'],
     ['esquirla','Esquirla del amanecer','Dawnshard','Novela corta'],
-  ]},
-  { id:'archivo-4', section:'principal', title:'El Archivo de las Tormentas · Cuarto tramo', note:'En su video, Sanderson coloca El hombre iluminado después del cuarto tomo.', books:[
     ['ritmo','El ritmo de la guerra','Rhythm of War'],
-    ['sol','El hombre iluminado','The Sunlit Man','Novela independiente'],
   ]},
-  { id:'archivo-5', section:'principal', title:'El Archivo de las Tormentas · Quinto tomo', note:'Actualización de la ruta para incluir el quinto tomo publicado después del video.', books:[
-    ['viento','Viento y verdad','Wind and Truth'],
+  { id:'puente', section:'principal', title:'Entre sagas', shortTitle:'Entre sagas', note:'Una novela independiente antes de volver a Nacidos de la Bruma.', books:[
+    ['aliento','El aliento de los dioses','Warbreaker'],
   ]},
-  { id:'bruma-2', section:'pausas', title:'Nacidos de la Bruma · Era 2', note:'Mantén el orden de los cuatro tomos. Después del tercer tomo se habilita una lectura complementaria.', books:[
+  { id:'bruma-2', section:'principal', title:'Nacidos de la Bruma · Era 2', shortTitle:'Era 2', note:'Completa la trilogía original antes de leer este tramo.', books:[
+    ['secreta','Nacidos de la Bruma: Historia secreta','Mistborn: Secret History','Novela corta · también en Arcanum ilimitado'],
     ['aleacion','Aleación de ley','The Alloy of Law'],
     ['sombras','Sombras de identidad','Shadows of Self'],
     ['brazales','Brazales de duelo','The Bands of Mourning'],
-    ['secreta','Nacidos de la Bruma: Historia secreta','Mistborn: Secret History','También en Arcanum ilimitado'],
     ['metal','El metal perdido','The Lost Metal'],
   ]},
-  { id:'independientes', section:'pausas', title:'Novelas para intercalar', note:'Dos opciones independientes que el autor menciona para las pausas del Archivo.', books:[
+  { id:'otros-mundos', section:'principal', title:'Los viajes de Hoid y otros mundos', shortTitle:'Otros mundos', note:'Tres novelas independientes en el orden que elegiste.', books:[
+    ['trenza','Trenza del mar Esmeralda','Tress of the Emerald Sea'],
     ['yumi','Yumi y el pintor de pesadillas','Yumi and the Nightmare Painter'],
-    ['elantris','Elantris','Elantris'],
+    ['sol','El hombre iluminado','The Sunlit Man'],
+  ]},
+  { id:'archivo-5', section:'principal', title:'Cierre del primer arco del Archivo', shortTitle:'El Archivo V', note:'Regresa al Archivo para leer el quinto tomo.', books:[
+    ['viento','Viento y verdad','Wind and Truth'],
+  ]},
+  { id:'lecturas-finales', section:'principal', title:'Al final del recorrido', shortTitle:'Lecturas finales', note:'La antología contiene material que adelanta detalles de varias obras. Consúltala aquí al final de tu ruta.', books:[
+    ['antologia','Arcanum ilimitado','Arcanum Unbounded','Antología · incluye relatos que puedes haber leído por separado'],
+    ['islas','Islas de la Ascuaoscura','Isles of the Emberdark'],
+    ['diciembre','The Fires of December','The Fires of December','Tapa dura de Tor en EE. UU. · prevista para el 8 de diciembre de 2026'],
   ]},
   { id:'arcanum', section:'complementos', title:'Relatos de Arcanum ilimitado', note:'La antología reúne lecturas breves. Las novelas cortas que intercalamos en otras secciones aparecen en su lugar de lectura. Su fragmento de Arena blanca se puede sustituir por la edición gráfica completa.', books:[
-    ['alma','El alma del emperador','The Emperor’s Soul'],
     ['esperanza','La esperanza de Elantris','The Hope of Elantris','Después de Elantris','elantris'],
     ['undecimo','El undécimo metal','The Eleventh Metal','Ya puedes leerlo tras El Imperio Final','final'],
     ['allomante','El alomante Jak y los Pozos de Eltania','Allomancer Jak and the Pits of Eltania','Intercálalo después de Aleación de ley','aleacion'],
     ['silencio','Sombras por Silencio en los bosques del infierno','Shadows for Silence in the Forests of Hell'],
     ['ocaso','Sexto del Ocaso','Sixth of the Dusk','Lectura opcional antes de Islas de la Ascuaoscura'],
   ]},
-  { id:'otros', section:'complementos', title:'Más Cosmere', note:'Lecturas adicionales. La posición de Islas es una sugerencia editorial para esta web.', books:[
-    ['diciembre','The Fires of December','The Fires of December','Novela independiente · edición digital distribuida a mecenas en 2026'],
+  { id:'otros', section:'complementos', title:'Más Cosmere', note:'Lecturas adicionales fuera de tu ruta principal.', books:[
     ['arena','Arena blanca','White Sand','Novela gráfica'],
-    ['islas','Islas de la Ascuaoscura','Isles of the Emberdark','Sugerida al final del recorrido principal','viento'],
   ]},
   { id:'cuentos-ilustrados', section:'complementos', title:'Hoid’s Storybook Collection', note:'Ediciones ilustradas de 2026. Sugerencia para esta ruta: déjalas para después de completar los cinco tomos del Archivo.', books:[
     ['cuentos-hoid','Hoid’s Storybook Collection','Hoid’s Storybook Collection','Colección ilustrada · lectura opcional','viento'],
@@ -66,7 +65,6 @@ const groups = [
 ];
 const sections = [
   ['principal','Ruta principal'],
-  ['pausas','Pausas'],
   ['complementos','Complementos'],
   ['fuera','Fuera del Cosmere'],
 ];
