@@ -13,19 +13,18 @@ function resetZoom() {
   viewport.scrollTo(0, 0);
 }
 
-for (const link of document.querySelectorAll('[data-reference]')) {
-  link.addEventListener('click', event => {
-    if (typeof viewer.showModal !== 'function' || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    activeLink = link;
-    viewerTitle.textContent = link.dataset.reference;
-    viewerImage.alt = link.querySelector('img')?.alt || link.dataset.reference;
-    viewerImage.src = link.href;
-    originalLink.href = link.href;
-    resetZoom();
-    viewer.showModal();
-  });
-}
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[data-reference]');
+  if (!link || typeof viewer.showModal !== 'function' || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  activeLink = link;
+  viewerTitle.textContent = link.dataset.reference;
+  viewerImage.alt = link.querySelector('img')?.alt || link.dataset.reference;
+  viewerImage.src = link.href;
+  originalLink.href = link.href;
+  resetZoom();
+  viewer.showModal();
+});
 
 zoom.addEventListener('click', () => {
   const expanded = viewerImage.classList.toggle('reference-zoomed');

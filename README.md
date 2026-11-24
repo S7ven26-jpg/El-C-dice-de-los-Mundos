@@ -33,3 +33,7 @@ Abre **Mi viaje → Explorar la carta** y selecciona cualquiera de los 24 nodos.
 En **Diario** puedes registrar el último capítulo completado de *El pozo de la ascensión* y guardar tus notas. Completar el epílogo actualiza el estado del libro en la carta estelar.
 
 Abre la dirección web en Safari y usa **Compartir → Añadir a pantalla de inicio → Abrir como app web**. El avance y las notas se guardan en cada dispositivo. Para llevarlos a otro, usa **Diario → Exportar copia**, guarda el archivo en iCloud Drive y ábrelo en el otro dispositivo con **Diario → Importar copia**.
+
+## Personajes de Luthadel
+
+En **Nacidos de la Bruma → Personajes** está la ficha de Vin con su galería ampliable y seis fichas breves del primer libro. La galería adicional de Vin se habilita después de marcar los tres tomos de la Era 1 como leídos.
